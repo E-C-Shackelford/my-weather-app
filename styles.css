@@ -147,3 +147,12 @@ div.footer-style {
   margin-bottom: 100px;
   text-align: center;
 }
+
+.built-style {
+  color: #18a0f4;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 100px;
+  text-align: center;
+}
