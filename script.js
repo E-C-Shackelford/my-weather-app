@@ -35,6 +35,7 @@ h2.innerHTML = formatDate(new Date());
 
 function displayWeatherCondition(response) {
   document.querySelector("#city").innerHTML = response.data.name;
+  celsiusTemp = response.data.main.temp;
   document.querySelector("#temp-current").innerHTML = Math.round(celsiusTemp);
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
