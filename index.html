@@ -17,6 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap"
       rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/c8cec5b779.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -27,7 +28,7 @@
         
           <h1 id="city"></h1>
           <h2>Sat Feb 5  5:01</h2>
-          <h4 class="temp">
+          <h3 class="temp">
             <span id="temp-current">
             </span>
             <sup><span class= "scale degrees">
@@ -35,8 +36,13 @@
             |
             <a href="#" class="scale degrees" id="fahrenheit-link">°F</a>
             </span></sup>
-          </h4>
-          <h5 id="description"><span class="emoji"></span></h5>
+          </h3>
+          <div class="weather-conditions">
+          <div class="weather-descriptor" id="description"></div>
+          <div class="weather-icon weather-icon-main" id="icon-position"><img src="http://openweathermap.org/img/wn/04d@2x.png" id="icon"/></div>
+          <i class="fa-solid fa-wind weather-icon-main" id="wind-icon"></i>
+          <div class="wind-position" id="wind"></div>
+          </div>
 
           <input
             id="searchCity-input"
