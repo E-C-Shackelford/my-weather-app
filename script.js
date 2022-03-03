@@ -1,12 +1,12 @@
 function formatDate(date) {
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let months = [
     "Jan",
     "Feb",
-    "March",
+    "Mar",
     "Apr",
     "May",
-    "June",
+    "Jun",
     "Jul",
     "Aug",
     "Sep",
@@ -28,18 +28,24 @@ function formatDate(date) {
     currentMinutes = `0${currentMinutes}`;
   }
 
-  return `${currentDay} ${currentMonth} ${currentDate}  ${currentHours}:${currentMinutes}`;
+  return `${currentDay} ${currentMonth} ${currentDate} ︱ ${currentHours}:${currentMinutes}`;
 }
 let h2 = document.querySelector("h2");
 h2.innerHTML = formatDate(new Date());
 
 function displayWeatherCondition(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#temp-current").innerHTML = Math.round(
-    response.data.main.temp
-  );
+  document.querySelector("#temp-current").innerHTML = Math.round(celsiusTemp);
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].main);
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
 }
 function searchCity(city) {
   let apiKey = "080f779f80a6c07172dd57953e33b195";
