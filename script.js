@@ -33,6 +33,70 @@ function formatDate(date) {
 let h2 = document.querySelector("h2");
 h2.innerHTML = formatDate(new Date());
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
+  let hourlyForecast = response.data.hourly;
+
+  let forecastElement = document.querySelector("#forecast");
+
+  let hourlyForecastElement = document.querySelector("today-hourly-forecast");
+
+  let forecastHTML = `<div class="row align-items-start">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 4) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col">
+              <div class="day">${formatDay(forecastDay.dt)}</div>
+              <div class="weather-icon"><img src="http://openweathermap.org/img/wn/${
+                forecastDay.weather[0].icon
+              }@2x.png" alt="" id="icon"/></div>
+              <div><span class="temps">${Math.round(
+                forecastDay.temp.max
+              )}°</span>  <span class="lowest-temp">${Math.round(
+          forecastDay.temp.min
+        )}°</span></div>
+            </div>`;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+
+  let hourlyForecastHTML = `<div class="row align-itmes-start">`;
+  hourlyForecast.forEach(function (forecastHour, index) {
+    if (index < 2) {
+      hourlyForecastHTML =
+        hourlyForecastHTML +
+        `<div class="col">
+              <div class="time">${formatHour(forecastHour.dt)}</div>
+              <div><img src="http://openweathermap.org/img/wn/${
+                forecastHour.weather[0].icon
+              }@2x.png" alt="" class="weather-icon" id="icon"/></div>
+              <div class="temps">${Math.round(forecastHour.temp)}°</div>
+            </div>`;
+    }
+  });
+  hourlyForecastHTML = hourlyForecastHTML + `</div>`;
+  hourlyForecastElement.innerHTML = hourlyForecastHTML;
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "080f779f80a6c07172dd57953e33b195";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayWeatherCondition(response) {
   document.querySelector("#city").innerHTML = response.data.name;
   celsiusTemp = response.data.main.temp;
@@ -47,7 +111,10 @@ function displayWeatherCondition(response) {
   iconElement.setAttribute("alt", response.data.weather[0].main);
   let windElement = document.querySelector("#wind");
   windElement.innerHTML = `${Math.round(response.data.wind.speed)} km/h`;
+
+  getForecast(response.data.coord);
 }
+
 function searchCity(city) {
   let apiKey = "080f779f80a6c07172dd57953e33b195";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
