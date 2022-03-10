@@ -33,6 +33,20 @@ function formatDate(date) {
 let h2 = document.querySelector("h2");
 h2.innerHTML = formatDate(new Date());
 
+function formatHour(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${hours}:${minutes}`;
+}
+
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -48,7 +62,7 @@ function displayForecast(response) {
 
   let forecastElement = document.querySelector("#forecast");
 
-  let hourlyForecastElement = document.querySelector("today-hourly-forecast");
+  let hourlyForecastElement = document.querySelector("#today-hourly-forecast");
 
   let forecastHTML = `<div class="row align-items-start">`;
   forecast.forEach(function (forecastDay, index) {
@@ -74,7 +88,7 @@ function displayForecast(response) {
 
   let hourlyForecastHTML = `<div class="row align-itmes-start">`;
   hourlyForecast.forEach(function (forecastHour, index) {
-    if (index < 2) {
+    if (index < 3) {
       hourlyForecastHTML =
         hourlyForecastHTML +
         `<div class="col">
