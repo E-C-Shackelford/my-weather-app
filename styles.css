@@ -84,6 +84,11 @@ h3 {
   padding: 10px 15px;
   text-align: left;
 }
+
+.search-bar:focus {
+  outline: none;
+}
+
 button {
   background: white;
   border: 1px solid #18a0f4;
